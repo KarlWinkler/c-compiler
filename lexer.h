@@ -38,6 +38,7 @@ struct Token {
 
 struct TokenList {
   Token* head;
+  int len;
 };
 
 #endif 

@@ -15,19 +15,14 @@ int main(int args, char** argv) {
 
   int i = tokens_from_file(filename, buffer);
   TokenList* tokens = lex_tokens(buffer);
-  printf("%s", buffer);
-  Token * current_token = tokens->head;
-  printf("%s\n", current_token->value);
-  // current_token = current_token->next;
-  // printf("%s\n", current_token->value);
-  // while(current_token != NULL) {
-  //   printf("%s\n", current_token->value);
-  //   current_token = current_token->next;
-  // }
+  printf("%s\n", buffer);
+  print_list(tokens);
+  return i;
 }
 
 TokenList* lex_tokens(char* buffer) {
   TokenList* lexed_tokens = (TokenList *)malloc(sizeof(TokenList));
+  lexed_tokens->len = 0;
   Token* current_token = NULL;
 
   int i = 0;
@@ -54,11 +49,7 @@ TokenList* lex_tokens(char* buffer) {
         current_token = add_token(lexed_tokens, current_token, KEYWORD, current_word);
         continue;
       } else {
-        if (lexed_tokens->head != NULL) {
-          printf("h1: %p value: %s\n", lexed_tokens->head, lexed_tokens->head->value);
-        }
         current_token = add_token(lexed_tokens, current_token, KEYWORD, current_word);
-        printf("h2: %p value: %s\n", lexed_tokens->head, lexed_tokens->head->value);
         continue;
       }
     }
@@ -98,19 +89,20 @@ Token* add_token(TokenList* token_list, Token* token, TokenType type, char* valu
   if (token_list->head == NULL) {
     token_list->head = new_token;
   } else {
-    token = new_token;
+    token->next = new_token;
   }
 
+  token_list->len++;
+  // printf("%d\n", token_list->len);
   return new_token;
 }
 
 void print_list(TokenList* token_list) {
   Token* current_token = token_list->head;
-  printf("head: %p\n", current_token);
-  // while (current_token != NULL) {
-  //   printf("value: %s\n", current_token->value);
-  //   current_token = current_token->next;
-  // }
+  while (current_token != NULL) {
+    printf("%s\n", current_token->value);
+    current_token = current_token->next;
+  }
 }
 
 int in_string_array(char* value, char** array, int array_len) {
