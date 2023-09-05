@@ -45,11 +45,11 @@ TokenList* lex_tokens(char* buffer) {
       }
       current_word[j] = '\0';
 
-      if (in_string_array(current_word, KEYWORDS, KEYWORD_LEN)) {
+      if (in_string_array(current_word, KEYWORDS, KEYWORD_LEN) == 1) {
         current_token = add_token(lexed_tokens, current_token, KEYWORD, current_word);
         continue;
       } else {
-        current_token = add_token(lexed_tokens, current_token, KEYWORD, current_word);
+        current_token = add_token(lexed_tokens, current_token, IDENTIFIER, current_word);
         continue;
       }
     }
@@ -100,7 +100,7 @@ Token* add_token(TokenList* token_list, Token* token, TokenType type, char* valu
 void print_list(TokenList* token_list) {
   Token* current_token = token_list->head;
   while (current_token != NULL) {
-    printf("%s\n", current_token->value);
+    printf("%d: %s\n", current_token->token_type, current_token->value);
     current_token = current_token->next;
   }
 }

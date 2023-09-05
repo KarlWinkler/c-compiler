@@ -14,8 +14,8 @@ Token* add_token(TokenList* token_list, Token* token, TokenType type, char* valu
 void print_list(TokenList* token_list);
 
 
-char* KEYWORDS[] = {"int", "return"};
-int KEYWORD_LEN = 2;
+char* KEYWORDS[] = {"function", "int", "return"};
+int KEYWORD_LEN = 3;
 char CHARACTERS[] = {'{', '}', '(', ')', ';'};
 int CHARACTERS_LEN = 5;
 char* INTEGER_REGEX = "[0-9]+";

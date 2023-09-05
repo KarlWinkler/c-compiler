@@ -1,1 +1,3 @@
-word one two
+function test(int i){
+  return 1;
+}
